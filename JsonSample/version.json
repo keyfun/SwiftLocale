@@ -1,0 +1,17 @@
+{
+  "updated_at": "2018-06-25 17:35:00",
+  "files": [
+    {
+      "locale": "en",
+      "file_path": "en.json"
+    },
+    {
+      "locale": "sc",
+      "file_path": "sc.json"
+    },
+    {
+      "locale": "tc",
+      "file_path": "tc.json"
+    }
+  ]
+}
