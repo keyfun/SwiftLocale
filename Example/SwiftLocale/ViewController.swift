@@ -12,7 +12,7 @@ import SwiftLocale
 class ViewController: UIViewController {
 
     let kServerPath = "http://localhost/JsonSample/"
-    let kVersionFile = "version.json"
+    let kRootFile = "version.json"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         RemoteLocaleManager.shared.initConfig(
             cacheName: "SwiftLocaleDemo",
             serverPath: kServerPath,
-            rootFile: kVersionFile)
+            rootFile: kRootFile)
 
         RemoteLocaleManager.shared.run { (response, error) in
             print("response = \(response?.description ?? "nil")")
