@@ -22,8 +22,8 @@ public class FileCache {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
 
-//        print("remoteUrl = \(remoteUrl.absoluteString)")
-//        print("localUrl = \(localUrl.absoluteString)")
+        print("remoteUrl = \(remoteUrl.absoluteString)")
+        print("localUrl = \(localUrl.absoluteString)")
 
         let request = URLRequest(
             url: remoteUrl,
@@ -38,9 +38,9 @@ public class FileCache {
                 }
 
                 do {
-                    try _ = FileManager.default.replaceItemAt(localUrl, withItemAt: tempLocalUrl)
+                    _ = try FileManager.default.replaceItemAt(localUrl, withItemAt: tempLocalUrl)
                 } catch (let writeError) {
-//                    print("error writing file \(localUrl) : \(writeError)")
+                    print("error writing file \(localUrl) : \(writeError)")
                     completion(nil, writeError)
                 }
 
@@ -100,7 +100,7 @@ public class FileCache {
         removeFile(url)
     }
 
-    open static func removeFile(_ url: URL) {
+    public static func removeFile(_ url: URL) {
         do {
             try FileManager.default.removeItem(at: url)
         } catch {
@@ -108,13 +108,57 @@ public class FileCache {
         }
     }
 
-    static private func getDocumentUrl(_ path: String) -> URL {
+    public static func clearTempFolder(_ path: String) {
+        let fileManager = FileManager.default
+        let tempFolderPath = getDocumentUrl(path)
+        do {
+            let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath.path)
+            for filePath in filePaths {
+                try fileManager.removeItem(atPath: tempFolderPath.path + "/" + filePath)
+            }
+        } catch {
+            print("Could not clear temp folder: \(error)")
+        }
+    }
+
+    private static func getDocumentUrl(_ path: String) -> URL {
         let documentUrl = try! FileManager.default.url(
             for: .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: false)
         return documentUrl.appendingPathComponent(path)
+    }
+
+    public static func initConfig(path: String) {
+        let target = getDocumentUrl(path)
+        if !FileManager.default.fileExists(atPath: target.absoluteString) {
+            print("\(target.path) not exists")
+            do {
+                try FileManager.default.createDirectory(
+                    atPath: target.path,
+                    withIntermediateDirectories: true,
+                    attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    public static func replaceFiles(from: String, to: String) {
+        let fromUrl = getDocumentUrl(from)
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: fromUrl.path)
+            for filename in files {
+                print("filename = \(filename)")
+                let toUrl = getDocumentUrl(to + "/" + filename)
+                let withUrl = fromUrl.appendingPathComponent(filename)
+                print("toUrl = \(toUrl.path)")
+                _ = try FileManager.default.replaceItemAt(toUrl, withItemAt: withUrl)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
 }
