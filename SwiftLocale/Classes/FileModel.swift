@@ -22,8 +22,8 @@ public class FileModel {
     }
 
     public func toString() -> String {
-        let format = "locale = %@, filePath = %@"
-        return String(format: format, locale, filePath)
+        let format = "locale = %@, filePath = %@\ndata = %@"
+        return String(format: format, locale, filePath, data)
     }
     
     public func printString() {

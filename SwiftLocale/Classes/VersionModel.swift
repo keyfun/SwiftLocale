@@ -14,6 +14,11 @@ public struct VersionModel {
     public var files: Array<FileModel>!
     public var updatedDate: Date!
 
+    public init() {
+        files = Array<FileModel>()
+        updatedDate = Date()
+    }
+    
     public init(data: [String: AnyObject]?) {
         if let updatedAt = data?["updated_at"] as? String {
             self.updatedAt = updatedAt
@@ -44,7 +49,7 @@ public struct VersionModel {
         var filesStr = ""
 
         files.forEach({ (file) in
-            filesStr.append("\n" + file.toString())
+            filesStr.append("\n" + file.toString() + "\n")
         })
 
         let format = "updatedAt= %@\nfiles: %@"
@@ -53,10 +58,6 @@ public struct VersionModel {
 
     public func printString() {
         print(toString())
-
-        files.forEach({ (file) in
-            print(file.data)
-        })
     }
 
 }

@@ -137,5 +137,9 @@ public class RemoteLocaleManager {
             })
         }
     }
+    
+    public func getLocaleModel() -> VersionModel {
+        return localVersion ?? VersionModel()
+    }
 
 }
