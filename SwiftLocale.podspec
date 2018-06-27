@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftLocale'
   s.version          = '1.0.0'
-  s.summary          = 'A short description of SwiftLocale.'
+  s.summary          = 'SwiftLocale for remote localization string file in iOS'
 
   s.description      = <<-DESC
 SwiftLocale for manage external localization Json File instead of bundle string files.
