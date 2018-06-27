@@ -18,7 +18,7 @@ public struct VersionModel {
         files = Array<FileModel>()
         updatedDate = Date()
     }
-    
+
     public init(data: [String: AnyObject]?) {
         if let updatedAt = data?["updated_at"] as? String {
             self.updatedAt = updatedAt
@@ -32,6 +32,11 @@ public struct VersionModel {
         } else {
             files = Array<FileModel>()
         }
+    }
+
+    public func getString(locale: String, key: String) -> String {
+        let str = files.filter { return $0.locale == locale }.first?.data[key]
+        return str ?? key
     }
 
     private func getDate() -> Date {

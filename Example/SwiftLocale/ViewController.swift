@@ -27,15 +27,28 @@ class ViewController: UIViewController {
             cacheName: "SwiftLocaleDemo",
             serverPath: kServerPath,
             rootFile: kRootFile)
+        
+//        RemoteLocaleManager.shared.clear()
 
         startLoading()
-        RemoteLocaleManager.shared.run { (response, error) in
+        RemoteLocaleManager.shared.run { response, error in
 //            print("response = \(response?.description ?? "nil")")
             DispatchQueue.main.async {
-                self.textView.text = (response?.description)! + "\n"
-                self.textView.text.append(RemoteLocaleManager.shared.getLocaleModel().toString())
+                if let response = response {
+                    self.textView.text = response.description + "\n"
+                    self.textView.text.append(RemoteLocaleManager.shared.getLocaleModel().toString())
+                    
+                    let appNameEN = RemoteLocaleManager.shared.getString(locale: "en", key: "app_name")
+                    let appNameTC = RemoteLocaleManager.shared.getString(locale: "tc", key: "app_name")
+                    let appNameSC = RemoteLocaleManager.shared.getString(locale: "sc", key: "app_name")
+                    self.textView.text.append("\nappNameEN = \(appNameEN)\n")
+                    self.textView.text.append("\nappNameTC = \(appNameTC)\n")
+                    self.textView.text.append("\nappNameSC = \(appNameSC)\n")
+                } else {
+                    self.textView.text = error?.localizedDescription
+                }
+                self.stopLoading()
             }
-            self.stopLoading()
         }
     }
 

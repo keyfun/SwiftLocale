@@ -23,7 +23,7 @@ public class RemoteLocaleManager {
         self.cacheName = cacheName
         self.serverPath = serverPath
         self.rootFile = rootFile
-        
+
         FileCache.initConfig(path: cacheName + tmpFolder)
         saveConfig()
 
@@ -34,6 +34,10 @@ public class RemoteLocaleManager {
                 self.localParse(versionModel: self.localVersion!)
             }
         }
+    }
+    
+    public func clear() {
+        FileCache.clearTempFolder(cacheName)
     }
 
     private func loadConfig() {
@@ -52,6 +56,12 @@ public class RemoteLocaleManager {
         callback = completion
         downloadVersionFile(rootFile, completion: {
             response, error in
+            if error != nil {
+                self.callback?(nil, error)
+                self.callback = nil
+                return
+            }
+
             self.remoteVersion = VersionModel(data: response)
 
             // check if any new version
@@ -155,6 +165,10 @@ public class RemoteLocaleManager {
             return remoteVersion ?? VersionModel()
         }
         return localVersion ?? VersionModel()
+    }
+
+    public func getString(locale: String, key: String) -> String {
+        return getLocaleModel().getString(locale: locale, key: key)
     }
 
 }
