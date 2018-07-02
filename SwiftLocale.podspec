@@ -20,6 +20,8 @@ SwiftLocale for manage external localization Json File instead of bundle string 
   s.author           = { 'KeyFun' => 'keyfun.hk@gmail.com' }
   s.source           = { :git => 'https://github.com/keyfun/SwiftLocale.git', :tag => s.version.to_s }
 
+  s.swift_version = '4.2'
+
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'SwiftLocale/Classes/**/*'
