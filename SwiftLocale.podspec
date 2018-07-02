@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftLocale'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'SwiftLocale for remote localization string file in iOS'
 
   s.description      = <<-DESC
