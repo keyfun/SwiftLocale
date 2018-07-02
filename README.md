@@ -1,6 +1,6 @@
 # SwiftLocale
 
-[![CI Status](https://img.shields.io/travis/Key Hui/SwiftLocale.svg?style=flat)](https://travis-ci.org/Key Hui/SwiftLocale)
+[![CI Status](https://img.shields.io/travis/keyfun/SwiftLocale.svg?style=flat)](https://travis-ci.org/keyfun/SwiftLocale)
 [![Version](https://img.shields.io/cocoapods/v/SwiftLocale.svg?style=flat)](https://cocoapods.org/pods/SwiftLocale)
 [![License](https://img.shields.io/cocoapods/l/SwiftLocale.svg?style=flat)](https://cocoapods.org/pods/SwiftLocale)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftLocale.svg?style=flat)](https://cocoapods.org/pods/SwiftLocale)
